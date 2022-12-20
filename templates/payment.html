@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Оплата
+{% endblock %}
+
+{% block body %}
+<div class="main-block">
+    <div class="left-part">
+        <i class="fas fa-graduation-cap"></i>
+        <h1>Введите ваши данные</h1>
+        <p>Укажите ваши персональные данные: имя, фамилию, почту, номер телефона. Так мы сможем связаться с вами.</p>
+    </div>
+    <div class="card">
+        <form id="form" method="post">
+            <div class="msg" style="font-size: 20px">{{ msg }}</div>
+            <div class="info">
+                <input type="text" name="name" placeholder="Имя">
+                <input type="text" name="lname" placeholder="Фамилия">
+                <input type="text" name="phone" placeholder="Номер телефона">
+                <input type="text" name="email" placeholder="Email">
+                <label for="number">Номер комнаты</label>
+                <input type="text" id="number" name="roomNumber" placeholder="Номер комнаты" value='{{ number.roomNumber }}'>
+                <div class="checkin">Дата приезда</div>
+                <input type="date" name="checkin" placeholder="Дата приезда">
+                <div class="checkout">Дата отъезда</div>
+                <input type="date" name="checkout" placeholder="Дата отъезд">
+            </div>
+            <button type="submit" name="submit">Отправить</button>
+        </form>
+    </div>
+</div>
+
+<script>
+</script>
+
+<style>
+    html, body {
+        min-height: 100%;
+        box-sizing: border-box;
+    }
+
+    body, div, form, select, p {
+        padding: 0;
+        margin: 0;
+        outline: none;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 16px;
+    }
+
+    h1, h2 {
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+
+    h2 {
+        margin: 0 0 0 8px;
+        color: black;
+    }
+
+    .main-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+    }
+
+    .left-part, form {
+        padding: 25px;
+    }
+
+    .left-part {
+        text-align: center;
+    }
+
+    .fa-graduation-cap {
+        font-size: 72px;
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input, select {
+        padding: 5px;
+        margin-bottom: 30px;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid black;
+        color: black;
+    }
+
+    input::placeholder {
+        color: lightgray;
+    }
+
+    option:focus {
+        border: none;
+    }
+
+    option {
+        background: black;
+        border: none;
+    }
+
+    .checkbox input {
+        margin: 0 10px 0 0;
+        vertical-align: middle;
+    }
+
+    .checkbox a {
+        color: #26a9e0;
+    }
+
+    .checkbox a:hover {
+        color: #85d6de;
+    }
+
+    .btn-item, button {
+        padding: 10px 5px;
+        margin-top: 20px;
+        border-radius: 5px;
+        border: none;
+        background: #26a9e0;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 400;
+        color: #fff;
+    }
+
+    .btn-item {
+        display: inline-block;
+        margin: 20px 5px 0;
+    }
+
+    button {
+        margin-top: -10px;
+        width: 100%;
+    }
+
+    button:hover, .btn-item:hover {
+        background: #85d6de;
+    }
+
+    @media (min-width: 568px) {
+        html, body {
+            height: 100%;
+        }
+
+        .main-block {
+            height: calc(100% - 50px);
+        }
+    }
+
+    .checkin {
+        color: black;
+    }
+
+    .checkout {
+        color: black;
+    }
+
+    .msg {
+        color: red;
+        padding-bottom: 15px;
+        text-align: center;
+    }
+</style>
+{% endblock %}

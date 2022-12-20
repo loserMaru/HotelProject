@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block body %}
+<div class="row" style="margin-top:3%">
+    <div class="card" style='width: 25%'>
+        <img alt="Avatar"
+             src="https://pix10.agoda.net/hotelImages/161023/-1/88c7716d3339222aca1104f8314572af.jpg?ca=9&ce=1&s=1024x768"
+             style="margin-top:16px">
+        <div class="container">
+            <h4><b>УЮТНЫЕ НОМЕРА С ДОМАШНЕЙ АТМОСФЕРОЙ</b></h4>
+            <p>Уютные номера по доступным ценам. Номера для любого количества человек. Номера-коннекты для нескольких
+                семей. Ежедневная уборка</p>
+            <div class="button">
+                <a class="btn btn-outline-primary me-2" href="/booking">Узнать больше</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style='width: 25%'>
+        <img alt="Avatar"
+             src="https://panoramadeluxe.com/img/otdyh-u-morya/bassein-4.jpg" style="margin-top:16px">
+        <div class="container">
+            <h4><b>БАССЕЙНЫ ДЛЯ ВЗРОСЛЫХ И ДЕТЕЙ</b></h4>
+            <p>У нас в отеле вы найдете множество бассейнов. Детский бассейн с глубиной <b>1м</b> и подогревом <b>до
+                30*.</b> Бассейн для взрослых глубиной <b>3м</b> и подогревом <b>до 25*</b></p>
+            <div class="button">
+                <a class="btn btn-outline-primary me-2" href="/">Узнать больше</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style='width: 25%'>
+        <img alt="Avatar"
+             src="https://img03.rl0.ru/afisha/o/s5.afisha.ru/mediastorage/d7/24/109c33d0a2ac49029c5cd1ed24d7.jpg" style="margin-top:16px">
+        <div class="container">
+            <h4><b>РЕСТОРАН С ЛУЧШИМИ ПОВАРАМИ</b></h4>
+            <p>На территории нашего отеля Вы найдете ресторан, работающий с 16:00 до 23:00, где Вы сможете вкусно поесть
+                и насладиться вечером</p>
+            <div class="button">
+                <a class="btn btn-outline-primary me-2" href="/">Узнать больше</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<main>
+    <section class="text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Отельный комплекс</h1>
+                <b style="text-align: center; font-size: 36px">"Grand Royal Plaza"</b>
+                <p class="lead text-muted mt-3">Здесь вы сможете замечательно провести отпуск, развлечься, заняться активным
+                    отдыхом. Наш ресторан обеспечит вам самую вкусную еду. Лучший бассейн в городе</p>
+                <p>
+                    <a class="btn btn-primary my-2" href="/">Забронировать номер</a>
+                    <a class="btn btn-secondary my-2" href="/about">Узнать больше</a>
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<style>
+    .container {
+        margin: auto;
+    }
+
+    .button {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    h4 {
+        margin-top: 3%;
+        text-align: center;
+    }
+
+    img {
+        border-radius: 5px 5px 0 0;
+    }
+
+    p {
+        text-align: center;
+    }
+
+</style>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Бронирование
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 style="text-align:center">Бронирование номеров</h1>
+
+    <div class="row" style="margin-top:3%">
+        {%for rooms in room%}
+        <div class="card" style='width: 25%'>
+            <img src="{{ rooms.img }}" alt="Avatar" style="margin-top:16px">
+            <div class="container">
+
+                <h4> Номер <b>{{ rooms.roomNumber }}</b> <span style="color: green">{{ rooms.status }}</span>.
+                    Цена: <b>{{ rooms.price }}</b></h4>
+
+                <p>Тип номера: <b>{{ rooms.roomType }}</b></p>
+                <div class="button">
+                    <a href="/payment/{{rooms.idRoom}}" class="btn btn-outline-primary me-2">Забронировать</a>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+</div>
+
+<style>
+    .container {
+        margin: auto;
+    }
+
+    .button {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    h4 {
+        margin-top: 3%;
+    }
+
+</style>
+
+{% endblock %}
