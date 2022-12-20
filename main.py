@@ -1,6 +1,7 @@
-from flask import Flask, render_template, redirect, url_for
-from flask import request
+from flask import Flask, render_template, redirect, request, url_for, session
+from flask_session import Session
 from flask_mysqldb import MySQL, MySQLdb
+import re
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -97,26 +98,25 @@ def help():
     return render_template("help.html")
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
-        mysql.connection.cursor()
-        cursor.execute(f"SELECT * FROM account WHERE username= $s and password= $s", (username, password,))
+        cursor = mysql.connection.cursor()
+        cursor.execute(f"SELECT * FROM account WHERE username='{username}' and password={password}")
         account = cursor.fetchone()
         if account:
             session['loggedin'] = True
-            session['id'] = account['id']
             session['username'] = account['username']
-            return 'Logged in successfuly'
+            msg = 'Logged in successfuly'
         else:
             msg = 'Incorrect username/password'
     return render_template("login.html", msg=msg)
 
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
@@ -138,7 +138,7 @@ def register():
         elif not username or not password:
             msg = 'Please fill out the form!'
         else:
-            cursor.execute('INSERT INTO accounts VALUES (%s, %s)', (username, password,))
+            cursor.execute(f'''INSERT INTO `account` (`username`, `password`) VALUES ('{username}', '{password}') ''')
             mysql.connection.commit()
             msg = 'You have successfully registered!'
     elif request.method == 'POST':
