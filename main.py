@@ -38,10 +38,12 @@ def index():
 def about():
     return render_template("about.html")
 
-@app.route('/booking', methods=['GET','POST'])
+
+@app.route('/booking', methods=['GET', 'POST'])
 def booking():
     cursor = mysql.connection.cursor()
-    cursor.execute("select * from roomtype, room where room.RoomType_idRoomType = roomtype.idRoomType and room.status = 'free'")
+    cursor.execute(
+        "select * from roomtype, room where room.RoomType_idRoomType = roomtype.idRoomType and room.status = 'free'")
     room = cursor.fetchall()
     return render_template("booking.html", room=room)
 
@@ -95,9 +97,53 @@ def help():
     return render_template("help.html")
 
 
-@app.route('/auth')
-def auth():
-    return render_template("auth.html")
+@app.route('/login')
+def login():
+    msg = ''
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+        mysql.connection.cursor()
+        cursor.execute(f"SELECT * FROM account WHERE username= $s and password= $s", (username, password,))
+        account = cursor.fetchone()
+        if account:
+            session['loggedin'] = True
+            session['id'] = account['id']
+            session['username'] = account['username']
+            return 'Logged in successfuly'
+        else:
+            msg = 'Incorrect username/password'
+    return render_template("login.html", msg=msg)
+
+
+@app.route('/register')
+def register():
+    msg = ''
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        # Create variables for easy access
+        username = request.form['username']
+        password = request.form['password']
+
+        # Check if account exists using MySQL
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT * FROM account WHERE username = %s', (username,))
+        account = cursor.fetchone()
+        # If account exists show error and validation checks
+        if account:
+            msg = 'Account already exists!'
+        # elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+        #     msg = 'Invalid email address!'
+        elif not re.match(r'[A-Za-z0-9]+', username):
+            msg = 'Username must contain only characters and numbers!'
+        elif not username or not password:
+            msg = 'Please fill out the form!'
+        else:
+            cursor.execute('INSERT INTO accounts VALUES (%s, %s)', (username, password,))
+            mysql.connection.commit()
+            msg = 'You have successfully registered!'
+    elif request.method == 'POST':
+        msg = 'Please fill out the form!'
+    return render_template("register.html", msg=msg)
 
 
 if __name__ == "__main__":
