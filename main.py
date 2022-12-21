@@ -51,14 +51,14 @@ def booking():
 
 @app.route('/payment/<idRoom>', methods=['GET', 'POST'])
 def payment(idRoom):
+    if not session.get("username"):
+        return redirect("/login")
     msg = ''
-    print(idRoom)
     cursor = mysql.connection.cursor()
     cursor.execute(f"select status from room where idRoom={idRoom}")
     status = cursor.fetchone()
     cursor.execute(f"SELECT roomNumber FROM room WHERE idRoom={idRoom}")
     number = cursor.fetchone()
-    print(status['status'])
 
     if status['status'] == 'busy':
         return redirect(url_for('booking'))
@@ -79,7 +79,6 @@ def payment(idRoom):
                 VALUES ('{f}', '{l}', '{p}', '{e}', '{chkin}', '{chkout}')''')
                 cursor.execute(f"SELECT idRoom FROM room WHERE idRoom={idRoom}")
                 id = cursor.fetchone()
-                print(id)
                 cursor.execute(f'''UPDATE `room` SET status = 'busy' where idRoom='{id["idRoom"]}' ''')
                 mysql.connection.commit()
             except:
@@ -100,6 +99,7 @@ def help():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    log = ''
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
@@ -110,10 +110,16 @@ def login():
         if account:
             session['loggedin'] = True
             session['username'] = account['username']
-            msg = 'Logged in successfuly'
+            log = 'Logged in successfuly'
         else:
             msg = 'Incorrect username/password'
-    return render_template("login.html", msg=msg)
+    return render_template("login.html", msg=msg, log=log)
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(request.referrer)
 
 
 @app.route('/register', methods=['GET', 'POST'])

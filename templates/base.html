@@ -20,9 +20,16 @@
         <li class="nav-item"><a href="/reviews" class="nav-link">Отзывы</a></li>
         <li class="nav-item"><a href="/help" class="nav-link">Помощь</a></li>
         <li class="nav-item"><a href="/about" class="nav-link">О нас</a></li>
-        <a class="btn btn-outline-primary me-2" href="/login">Войти</a>
-        <a class="btn btn-outline-primary me-2" href="/register">Зарегистрироваться</a>
     </ul>
+
+    <div style="margin-right: 20px">
+        {%if session['username']%}
+        <a class="btn btn-outline-primary me-2" href="/logout">Выйти</a>
+        {%else%}
+        <a class="btn btn-outline-primary me-2" href="/login">Войти</a>
+        <a class="btn btn-primary me-2" href="/register">Зарегистрироваться</a>
+        {%endif%}
+    </div>
 </header>
 <body>
 
@@ -68,10 +75,9 @@
 </footer>
 </body>
 <style>
-    .header {
-        height: 200px
-        vertical-align: middle;
-        display: table-cell;
+    ul {
+        position: absolute;
+        margin: auto;
     }
 
     button {
