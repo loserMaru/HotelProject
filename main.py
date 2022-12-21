@@ -128,6 +128,7 @@ def register():
         # Create variables for easy access
         username = request.form['username']
         password = request.form['password']
+        passconfirm = request.form['confirm']
 
         # Check if account exists using MySQL
         cursor = mysql.connection.cursor()
@@ -142,6 +143,8 @@ def register():
             msg = 'Username must contain only characters and numbers!'
         elif not username or not password:
             msg = 'Please fill out the form!'
+        elif password != passconfirm:
+            msg = "Passwords don't match"
         else:
             cursor.execute(f'''INSERT INTO `account` (`username`, `password`) VALUES ('{username}', '{password}') ''')
             mysql.connection.commit()
