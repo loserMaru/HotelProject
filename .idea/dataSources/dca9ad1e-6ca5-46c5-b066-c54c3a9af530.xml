@@ -1088,7 +1088,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="304" parent="298" name="username">
+    <column id="304" parent="298" name="login">
       <DasType>varchar(45)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
@@ -1109,6 +1109,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="308" parent="299" name="idGuest">
+      <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>

@@ -63,7 +63,6 @@ def payment(idRoom):
     if status['status'] == 'busy':
         return redirect(url_for('booking'))
 
-    cursor = mysql.connection.cursor()
     if request.method == 'POST':
         f = request.form['name']
         l = request.form['lname']
@@ -75,7 +74,7 @@ def payment(idRoom):
             msg = 'Укажите дату верно'
         else:
             try:
-                cursor.execute(f'''INSERT INTO `guest` (`fname`, `lname`, `phone`, `email`, `checkin`, `checkout`) 
+                cursor.execute(f'''INSERT INTO `guest` (`fname`, `lname`, `phone`, `email`, `checkIn`, `checkOut`) 
                 VALUES ('{f}', '{l}', '{p}', '{e}', '{chkin}', '{chkout}')''')
                 cursor.execute(f"SELECT idRoom FROM room WHERE idRoom={idRoom}")
                 id = cursor.fetchone()

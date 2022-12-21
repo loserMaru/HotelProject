@@ -5,16 +5,20 @@ html {
 .card {
     /* Add shadows to create the "card" effect */
     width: 25%;
-    font-size: 16px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    font-size: 18px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     border-radius: 5px;
     overflow-x: hidden;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
 /* On mouse-over, add a deeper shadow */
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* Add some padding inside the card container */
