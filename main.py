@@ -68,8 +68,8 @@ def payment(idRoom):
         l = request.form['lname']
         p = request.form['phone']
         e = request.form['email']
-        chkin = request.form['checkin']
-        chkout = request.form['checkout']
+        chkin = request.form['checkIn']
+        chkout = request.form['checkOut']
         if chkin > chkout:
             msg = 'Укажите дату верно'
         else:

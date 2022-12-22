@@ -5,172 +5,128 @@
 {% endblock %}
 
 {% block body %}
-<div class="main-block">
-    <div class="left-part">
-        <i class="fas fa-graduation-cap"></i>
-        <h1>Введите ваши данные</h1>
-        <p>Укажите ваши персональные данные: имя, фамилию, почту, номер телефона. Так мы сможем связаться с вами.</p>
-    </div>
-    <div class="card">
-        <form id="form" method="post">
-            <div class="msg" style="font-size: 20px">{{ msg }}</div>
-            <div class="info">
-                <input type="text" name="name" placeholder="Имя">
-                <input type="text" name="lname" placeholder="Фамилия">
-                <input type="text" name="phone" placeholder="Номер телефона">
-                <input type="text" name="email" placeholder="Email">
-                <label for="number">Номер комнаты</label>
-                <input type="text" id="number" name="roomNumber" placeholder="Номер комнаты" value='{{ number.roomNumber }}'>
-                <div class="checkin">Дата приезда</div>
-                <input type="date" name="checkin" placeholder="Дата приезда">
-                <div class="checkout">Дата отъезда</div>
-                <input type="date" name="checkout" placeholder="Дата отъезд">
-            </div>
-            <button type="submit" name="submit">Отправить</button>
-        </form>
+<div class="login">
+    <h1>Укажите ваши данные</h1>
+    <form id="form" method="post">
+        <label for="name">
+            <i class="fa fa-user"></i>
+        </label>
+        <input type="text" name="name" placeholder="Имя" id="name" required>
+        <label for="lname">
+            <i class="fa fa-lock"></i>
+        </label>
+        <input type="text" name="lname" placeholder="Фамилия" id="lname" required>
+        <label for="email">
+            <i class="fa fa-lock"></i>
+        </label>
+        <input type="text" name="email" placeholder="Эл. почта" id="email" required>
+        <label for="phone">
+            <i class="fa fa-lock"></i>
+        </label>
+        <input type="text" name="phone" placeholder="Номер телефона" id="phone" required>
+        <label for="number">Номер комнаты
+            <i class="fa fa-lock"></i>
+        </label>
+        <input type="text" id="number" name="roomNumber" placeholder="Номер комнаты" value='{{ number.roomNumber }}'>
+        <label for="checkIn">Дата приезда
+            <i class="fa fa-lock"></i>
+        </label>
+        <input type="date" id="checkIn" name="checkIn">
+        <label for="checkOut">Дата отъезда
+            <i class="fa fa-lock"></i>
+        </label>
+        <input type="date" id="checkOut" name="checkOut">
+        <div class="msg"><span style="color:red; font-size: 18px">{{ msg }}</span></div>
+        <input type="submit" value="Отправить">
+    </form>
 </div>
-</div>
-
-<script>
-</script>
 
 <style>
-    html, body {
-        min-height: 100%;
+    * {
         box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 
-    body, div, form, select, p {
-        padding: 0;
-        margin: 0;
-        outline: none;
-        font-family: Roboto, Arial, sans-serif;
-        font-size: 16px;
+    .login, .register {
+        width: 400px;
+        background-color: #ffffff;
+        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+        margin: 100px auto;
     }
 
-    h1, h2 {
-        text-transform: uppercase;
-        font-weight: 400;
-    }
-
-    h2 {
-        margin: 0 0 0 8px;
-        color: black;
-    }
-
-    .main-block {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: 100%;
-    }
-
-    .left-part, form {
-        padding: 25px;
-    }
-
-    .left-part {
+    .login h1, .register h1 {
         text-align: center;
+        color: dodgerblue;
+        font-size: 24px;
+        padding: 20px 0 20px 0;
+        border-bottom: 1px solid #dee0e4;
     }
 
-    .fa-graduation-cap {
-        font-size: 72px;
-    }
-
-    .title {
+    .login .links, .register .links {
         display: flex;
-        align-items: center;
-        margin-bottom: 20px;
+        padding: 0 15px;
     }
 
-    .info {
-        display: flex;
-        flex-direction: column;
-    }
-
-    input, select {
-        padding: 5px;
-        margin-bottom: 30px;
-        background: transparent;
-        border: none;
-        border-bottom: 1px solid black;
-        color: black;
-    }
-
-    input::placeholder {
-        color: lightgray;
-    }
-
-    option:focus {
-        border: none;
-    }
-
-    option {
-        background: black;
-        border: none;
-    }
-
-    .checkbox input {
-        margin: 0 10px 0 0;
-        vertical-align: middle;
-    }
-
-    .checkbox a {
-        color: #26a9e0;
-    }
-
-    .checkbox a:hover {
-        color: #85d6de;
-    }
-
-    .btn-item, button {
-        padding: 10px 5px;
-        margin-top: 20px;
-        border-radius: 5px;
-        border: none;
-        background: #26a9e0;
+    .login .links a, .register .links a {
+        color: #adb2ba;
         text-decoration: none;
-        font-size: 15px;
-        font-weight: 400;
-        color: #fff;
+        display: inline-flex;
+        padding: 0 10px 10px 10px;
+        font-weight: bold;
     }
 
-    .btn-item {
-        display: inline-block;
-        margin: 20px 5px 0;
+    .login .links a:hover, .register .links a:hover {
+        color: dodgerblue;
     }
 
-    button {
-        margin-top: -10px;
+    .login .links a.active, .register .links a.active {
+        border-bottom: 3px solid dodgerblue;
+        color: dodgerblue;
+    }
+
+    .login form, .register form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-top: 20px;
+    }
+
+    .login form label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login form input[type="date"], .login form input[type="text"], .login form input[type="email"] .login form input[type="phone"] {
+        width: 310px;
+        height: 50px;
+        border: 1px solid #dee0e4;
+        margin-bottom: 20px;
+        padding: 0 15px;
+    }
+
+    .login form input[type="submit"], .register form input[type="submit"] {
         width: 100%;
+        padding: 15px;
+        margin-top: 20px;
+        background-color: dodgerblue;
+        border: 0;
+        cursor: pointer;
+        font-weight: bold;
+        color: #ffffff;
+        transition: background-color 0.2s;
     }
 
-    button:hover, .btn-item:hover {
-        background: #85d6de;
+    .login form input[type="submit"]:hover, .register form input[type="submit"]:hover {
+        background-color: brown;
+        transition: background-color 0.2s;
     }
 
-    @media (min-width: 568px) {
-        html, body {
-            height: 100%;
-        }
-
-        .main-block {
-            height: calc(100% - 50px);
-        }
+    body.loggedin {
+        background-color: #f3f4f7;
     }
-
-    .checkin {
-        color: black;
-    }
-
-    .checkout {
-        color: black;
-    }
-
-    .msg {
-        color: red;
-        padding-bottom: 15px;
-        text-align: center;
-    }
+</style>
 </style>
 {% endblock %}
