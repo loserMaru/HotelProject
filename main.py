@@ -104,7 +104,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         cursor = mysql.connection.cursor()
-        cursor.execute(f"SELECT * FROM account WHERE username='{username}' and password={password}")
+        cursor.execute(f"SELECT * FROM account WHERE username='{username}' and password='{password}' ")
         account = cursor.fetchone()
         if account:
             session['loggedin'] = True
@@ -152,6 +152,13 @@ def register():
     elif request.method == 'POST':
         msg = 'Please fill out the form!'
     return render_template("register.html", msg=msg)
+
+
+@app.route('/admin')
+def admin():
+    if session['username'] != 'admin':
+        return redirect('/home')
+    return render_template('admin.html')
 
 
 if __name__ == "__main__":

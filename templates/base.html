@@ -24,6 +24,10 @@
 
     <div style="margin-right: 20px">
         {%if session['username']%}
+        Вы вошли как: {{ session['username'] }}
+        {%if session['username'] == 'admin'%}
+        <a class="btn btn-outline-primary me-2" href="/admin">Админ меню</a>
+        {%endif%}
         <a class="btn btn-outline-primary me-2" href="/logout">Выйти</a>
         {%else%}
         <a class="btn btn-outline-primary me-2" href="/login">Войти</a>
