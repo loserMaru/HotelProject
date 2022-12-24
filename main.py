@@ -1,10 +1,13 @@
-from flask import Flask, render_template, redirect, request, url_for, session
-from flask_session import Session
-from flask_mysqldb import MySQL, MySQLdb
 import re
+from datetime import timedelta
+from form import about, home
+
+from flask import Flask, render_template, redirect, request, url_for, session
+from flask_mysqldb import MySQL, MySQLdb
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=24)
 
 mysql = MySQL(app)
 
@@ -29,15 +32,10 @@ def create_connection(host, user, password, db):
 connect_db = create_connection('localhost', 'root', '4863826M', 'hotel_db')
 
 
-@app.route('/')
-@app.route('/home')
-def index():
-    return render_template("index.html")
+app.add_url_rule('/', view_func=home.index)
 
 
-@app.route('/about')
-def about():
-    return render_template("about.html")
+app.add_url_rule('/about', view_func=about.about)
 
 
 @app.route('/booking', methods=['GET', 'POST'])
@@ -96,7 +94,7 @@ def help():
     return render_template("help.html")
 
 
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     log = ''
     msg = ''
@@ -109,6 +107,7 @@ def login():
         if account:
             session['loggedin'] = True
             session['username'] = account['username']
+            session.permanent = True
             log = 'Logged in successfuly'
         else:
             msg = 'Incorrect username/password'
@@ -157,7 +156,7 @@ def register():
 @app.route('/admin')
 def admin():
     if session['username'] != 'admin':
-        return redirect('/home')
+        return redirect('/')
     return render_template('admin.html')
 
 
