@@ -15,9 +15,10 @@
             <div class="container">
 
                 <h4> Номер <b>{{ rooms.roomNumber }}</b> <span style="color: green">{{ rooms.status }}</span>.
-                    Цена: <b>{{ rooms.price }}</b></h4>
+                    Цена: <b>{{ rooms.price }} руб.</b></h4>
 
                 <p>Тип номера: <b>{{ rooms.roomType }}</b></p>
+                <p>Описание: <b>{{ rooms.description }}</b></p>
                 <div class="button">
                     <a href="/payment/{{rooms.idRoom}}" class="btn btn-outline-primary me-2">Забронировать</a>
                     </form>

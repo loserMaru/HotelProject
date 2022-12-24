@@ -7,7 +7,7 @@ from form import about, home, auth
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=24)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15)
 
 mysql = MySQL(app)
 
@@ -87,6 +87,13 @@ def payment(idRoom):
     return render_template('payment.html', msg=msg, number=number)
 
 
+@app.route('/admin')
+def admin():
+    if session['username'] != 'admin':
+        return redirect('/')
+    return render_template('admin.html')
+
+
 @app.route('/reviews')
 def reviews():
     return render_template("reviews.html")
@@ -95,13 +102,6 @@ def reviews():
 @app.route('/help')
 def help():
     return render_template("help.html")
-
-
-@app.route('/admin')
-def admin():
-    if session['username'] != 'admin':
-        return redirect('/')
-    return render_template('admin.html')
 
 
 if __name__ == "__main__":

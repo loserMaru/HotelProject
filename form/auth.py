@@ -21,14 +21,15 @@ def login():
             session['loggedin'] = True
             session['username'] = account['username']
             session.permanent = True
-            log = 'Logged in successfuly'
+            log = 'Вход выполнен успешно'
         else:
-            msg = 'Incorrect username/password'
+            msg = 'Неверное имя пользователя или пароль'
     return render_template("login.html", msg=msg, log=log)
 
 
 def register():
     msg = ''
+    msgr = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         # Create variables for easy access
         username = request.form['username']
@@ -41,22 +42,22 @@ def register():
         account = cursor.fetchone()
         # If account exists show error and validation checks
         if account:
-            msg = 'Account already exists!'
+            msg = 'Аккаунт с таким логином уже существует!'
         # elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
         #     msg = 'Invalid email address!'
         elif not re.match(r'[A-Za-z0-9]+', username):
-            msg = 'Username must contain only characters and numbers!'
+            msg = 'Логин должен содержать только буквы и цифры!'
         elif not username or not password:
-            msg = 'Please fill out the form!'
+            msg = 'Пожалуйста, заполните это поле!'
         elif password != passconfirm:
-            msg = "Passwords don't match"
+            msg = "Пароли не совпадают"
         else:
             cursor.execute(f'''INSERT INTO `account` (`username`, `password`) VALUES ('{username}', '{password}') ''')
             mysql.connection.commit()
-            msg = 'You have successfully registered!'
+            msgr = 'Вы успешно зарегистрировались!'
     elif request.method == 'POST':
-        msg = 'Please fill out the form!'
-    return render_template("register.html", msg=msg)
+        msg = 'Пожалуйста, заполните это поле!'
+    return render_template("register.html", msg=msg, msgr=msgr)
 
 
 def logout():
