@@ -1,9 +1,9 @@
-import re
 from datetime import timedelta
-from form import about, home
 
 from flask import Flask, render_template, redirect, request, url_for, session
 from flask_mysqldb import MySQL, MySQLdb
+
+from form import about, home, auth
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -31,11 +31,14 @@ def create_connection(host, user, password, db):
 
 connect_db = create_connection('localhost', 'root', '4863826M', 'hotel_db')
 
-
 app.add_url_rule('/', view_func=home.index)
 
-
 app.add_url_rule('/about', view_func=about.about)
+
+# Auth forms
+app.add_url_rule('/login', methods=['GET', 'POST'], view_func=auth.login)
+app.add_url_rule('/logout', view_func=auth.logout)
+app.add_url_rule('/register', methods=['GET', 'POST'], view_func=auth.register)
 
 
 @app.route('/booking', methods=['GET', 'POST'])
@@ -92,65 +95,6 @@ def reviews():
 @app.route('/help')
 def help():
     return render_template("help.html")
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    log = ''
-    msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        username = request.form['username']
-        password = request.form['password']
-        cursor = mysql.connection.cursor()
-        cursor.execute(f"SELECT * FROM account WHERE username='{username}' and password='{password}' ")
-        account = cursor.fetchone()
-        if account:
-            session['loggedin'] = True
-            session['username'] = account['username']
-            session.permanent = True
-            log = 'Logged in successfuly'
-        else:
-            msg = 'Incorrect username/password'
-    return render_template("login.html", msg=msg, log=log)
-
-
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect(request.referrer)
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        # Create variables for easy access
-        username = request.form['username']
-        password = request.form['password']
-        passconfirm = request.form['confirm']
-
-        # Check if account exists using MySQL
-        cursor = mysql.connection.cursor()
-        cursor.execute('SELECT * FROM account WHERE username = %s', (username,))
-        account = cursor.fetchone()
-        # If account exists show error and validation checks
-        if account:
-            msg = 'Account already exists!'
-        # elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-        #     msg = 'Invalid email address!'
-        elif not re.match(r'[A-Za-z0-9]+', username):
-            msg = 'Username must contain only characters and numbers!'
-        elif not username or not password:
-            msg = 'Please fill out the form!'
-        elif password != passconfirm:
-            msg = "Passwords don't match"
-        else:
-            cursor.execute(f'''INSERT INTO `account` (`username`, `password`) VALUES ('{username}', '{password}') ''')
-            mysql.connection.commit()
-            msg = 'You have successfully registered!'
-    elif request.method == 'POST':
-        msg = 'Please fill out the form!'
-    return render_template("register.html", msg=msg)
 
 
 @app.route('/admin')
