@@ -3,7 +3,7 @@ from datetime import timedelta
 from flask import Flask, render_template, redirect, request, url_for, session
 from flask_mysqldb import MySQL, MySQLdb
 
-from form import about, home, auth
+from form import about, home, auth, admin
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -39,6 +39,10 @@ app.add_url_rule('/about', view_func=about.about)
 app.add_url_rule('/login', methods=['GET', 'POST'], view_func=auth.login)
 app.add_url_rule('/logout', view_func=auth.logout)
 app.add_url_rule('/register', methods=['GET', 'POST'], view_func=auth.register)
+
+
+# Admin panel
+app.add_url_rule('/admin', view_func=admin.admin)
 
 
 @app.route('/booking', methods=['GET', 'POST'])
@@ -85,13 +89,6 @@ def payment(idRoom):
                 msg = 'Данные неверны'
     cursor.close()
     return render_template('payment.html', msg=msg, number=number)
-
-
-@app.route('/admin')
-def admin():
-    if session['username'] != 'admin':
-        return redirect('/')
-    return render_template('admin.html')
 
 
 @app.route('/reviews')
