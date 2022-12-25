@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="login">
+<div class="login mb-5">
     <h1>Добавить новый номер</h1>
     <form id="form" method="post">
         <label for="number">
@@ -26,9 +26,27 @@
     </form>
 </div>
 
-<div class="block-right">
-    <h1>Просмотреть гостей</h1>
-</div>
+<h1 style="text-align: center; margin-bottom: 25px">Все гости</h1>
+<table>
+    <tr style="margin-right: 10px">
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Почта</th>
+        <th>Номер телефона</th>
+        <th>Дата приезда</th>
+        <th>Дата отъезда</th>
+    </tr>
+    {%for guests in guest%}
+    <tr>
+        <td>{{ guests.fname }}</td>
+        <td>{{ guests.lname }}</td>
+        <td>{{ guests.email }}</td>
+        <td>{{ guests.phone }}</td>
+        <td>{{ guests.checkIn }}</td>
+        <td>{{ guests.checkOut }}</td>
+    </tr>
+    {%endfor%}
+</table>
 
 <style>
     * {
@@ -38,88 +56,17 @@
         -moz-osx-font-smoothing: grayscale;
     }
 
-    .block-right {
-        overflow: auto;
-        text-align: center;
-    }
-
-    .login, .register {
-        width: 400px;
-        background-color: #ffffff;
-        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-        margin: 100px auto;
-    }
-
-    .login h1, .register h1 {
-        text-align: center;
-        color: dodgerblue;
-        font-size: 24px;
-        padding: 20px 0 20px 0;
-        border-bottom: 1px solid #dee0e4;
-    }
-
-    .login .links, .register .links {
-        display: flex;
-        padding: 0 15px;
-    }
-
-    .login .links a, .register .links a {
-        color: #adb2ba;
-        text-decoration: none;
-        display: inline-flex;
-        padding: 0 10px 10px 10px;
-        font-weight: bold;
-    }
-
-    .login .links a:hover, .register .links a:hover {
-        color: dodgerblue;
-    }
-
-    .login .links a.active, .register .links a.active {
-        border-bottom: 3px solid dodgerblue;
-        color: dodgerblue;
-    }
-
-    .login form, .register form {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding-top: 20px;
-    }
-
-    .login form label {
+    table {
         display: flex;
         justify-content: center;
-        align-items: center;
+        border-collapse: separate;
+        border-spacing: 50px 3px;
+        text-align: center;
+        font-size: 18px;
     }
 
-    .login form input[type="date"], .login form input[type="text"], .login form input[type="email"] .login form input[type="phone"] {
-        width: 310px;
-        height: 50px;
-        border: 1px solid #dee0e4;
-        margin-bottom: 20px;
-        padding: 0 15px;
-    }
-
-    .login form input[type="submit"], .register form input[type="submit"] {
-        width: 100%;
-        padding: 15px;
-        margin-top: 20px;
-        background-color: dodgerblue;
-        border: 0;
-        cursor: pointer;
-        font-weight: bold;
-        color: #ffffff;
-        transition: background-color 0.2s;
-    }
-
-    .login form input[type="submit"]:hover, .register form input[type="submit"]:hover {
-        background-color: brown;
-        transition: background-color 0.2s;
-    }
-
-    body.loggedin {
-        background-color: #f3f4f7;
+    label {
+        margin-bottom: 10px;
     }
 </style>
 {% endblock %}

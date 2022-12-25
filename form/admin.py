@@ -30,4 +30,7 @@ def admin():
                 msg = 'Такой номер уже существует'
         except(Exception,):
             msg = 'Данные неверны'
-    return render_template('admin.html', msg=msg, msgr=msgr)
+
+    cursor.execute(f"SELECT * FROM guest")
+    guest = cursor.fetchall()
+    return render_template('admin.html', msg=msg, msgr=msgr, guest=guest)

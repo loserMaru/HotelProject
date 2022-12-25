@@ -30,3 +30,75 @@ html {
     display: flex;
     justify-content: space-around;
 }
+    .login, .register {
+        width: 400px;
+        background-color: #ffffff;
+        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+        margin: 100px auto;
+    }
+
+    .login h1, .register h1 {
+        text-align: center;
+        color: dodgerblue;
+        font-size: 24px;
+        padding: 20px 0 20px 0;
+        border-bottom: 1px solid #dee0e4;
+    }
+
+    .login .links, .register .links {
+        display: flex;
+        padding: 0 15px;
+    }
+
+    .login .links a, .register .links a {
+        color: #adb2ba;
+        text-decoration: none;
+        display: inline-flex;
+        padding: 0 10px 10px 10px;
+        font-weight: bold;
+    }
+
+    .login .links a:hover, .register .links a:hover {
+        color: dodgerblue;
+    }
+
+    .login .links a.active, .register .links a.active {
+        border-bottom: 3px solid dodgerblue;
+        color: dodgerblue;
+    }
+
+    .login form, .register form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-top: 20px;
+    }
+
+    .login form input[type="password"], .login form input[type="text"], .login form input[type="email"], .register form input[type="password"], .register form input[type="text"], .register form input[type="email"] {
+        width: 310px;
+        height: 50px;
+        border: 1px solid #dee0e4;
+        margin-bottom: 20px;
+        padding: 0 15px;
+    }
+
+    .login form input[type="submit"], .register form input[type="submit"] {
+        width: 100%;
+        padding: 15px;
+        margin-top: 20px;
+        background-color: dodgerblue;
+        border: 0;
+        cursor: pointer;
+        font-weight: bold;
+        color: #ffffff;
+        transition: background-color 0.2s;
+    }
+
+    .login form input[type="submit"]:hover, .register form input[type="submit"]:hover {
+        background-color: brown;
+        transition: background-color 0.2s;
+    }
+
+    body.loggedin {
+        background-color: #f3f4f7;
+    }
