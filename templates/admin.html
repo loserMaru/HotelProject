@@ -29,6 +29,7 @@
 <h1 style="text-align: center; margin-bottom: 25px">Все гости</h1>
 <table>
     <tr style="margin-right: 10px">
+        <th>ID</th>
         <th>Имя</th>
         <th>Фамилия</th>
         <th>Почта</th>
@@ -38,6 +39,7 @@
     </tr>
     {%for guests in guest%}
     <tr>
+        <td>{{ guests.idGuest }}</td>
         <td>{{ guests.fname }}</td>
         <td>{{ guests.lname }}</td>
         <td>{{ guests.email }}</td>
