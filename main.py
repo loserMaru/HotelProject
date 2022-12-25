@@ -42,7 +42,7 @@ app.add_url_rule('/register', methods=['GET', 'POST'], view_func=auth.register)
 
 
 # Admin panel
-app.add_url_rule('/admin', view_func=admin.admin)
+app.add_url_rule('/admin', methods=['GET', 'POST'], view_func=admin.admin)
 
 
 @app.route('/booking', methods=['GET', 'POST'])
