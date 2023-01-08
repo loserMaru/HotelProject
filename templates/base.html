@@ -24,11 +24,13 @@
 
     <div style="margin-right: 20px">
         {%if session['username']%}
-        Вы вошли как: {{ session['username'] }}
         {%if session['username'] == 'admin'%}
         <a class="btn btn-outline-primary me-2" href="/admin" style="margin-left: 10px">Админ меню</a>
         {%endif%}
-        <a class="btn btn-outline-primary me-2" href="/logout" style="margin-left: 10px">Выйти</a>
+        {%for accs in acc%}
+        <a class="btn btn-outline-primary me-2" href="/profile/{{accs.idAccount}}" style="margin-left: 10px">Профиль</a>
+        {%endfor%}
+        <a class="btn btn-primary me-2" href="/logout" style="margin-left: 10px">Выйти</a>
         {%else%}
         <a class="btn btn-outline-primary me-2" href="/login">Войти</a>
         <a class="btn btn-primary me-2" href="/register">Зарегистрироваться</a>
@@ -42,7 +44,8 @@
 <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
         <div class="col-12 col-md">
-            <small class="d-block mb-3 text-muted" style="margin-left: 20px; margin-top: 75px">© Grand Royal Plaza 2022</small>
+            <small class="d-block mb-3 text-muted" style="margin-left: 20px; margin-top: 75px">© Grand Royal Plaza
+                2022</small>
         </div>
         <div class="col-6 col-md">
             <h5>Features</h5>

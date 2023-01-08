@@ -8,5 +8,13 @@ app = Flask(__name__)
 mysql = MySQL(app)
 
 
-def profile():
-    return render_template('profile.html')
+def profile(idAccount):
+    if not session:
+        return redirect('/register')
+    print(session['username'])
+    sesiya = session['username']
+    cursor = mysql.connection.cursor()
+    cursor.execute(f'''SELECT * FROM `account` where username = '{sesiya}' ''')
+    name = cursor.fetchone()
+
+    return render_template('profile.html', name=name)

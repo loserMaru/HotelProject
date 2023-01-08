@@ -1,10 +1,9 @@
-import profile
 from datetime import timedelta
 
 from flask import Flask, render_template, redirect, request, url_for, session
 from flask_mysqldb import MySQL, MySQLdb
 
-from form import about, home, auth, admin, profile
+from form import about, home, auth, admin, profile, payment, booking, help, reviews
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -32,80 +31,34 @@ def create_connection(host, user, password, db):
 
 connect_db = create_connection('localhost', 'root', '4863826M', 'hotel_db')
 
-app.add_url_rule('/', view_func=home.index)
-
-app.add_url_rule('/about', view_func=about.about)
+# Home
+app.add_url_rule('/', methods=['GET', 'POST'], view_func=home.index)
 
 # Auth forms
 app.add_url_rule('/login', methods=['GET', 'POST'], view_func=auth.login)
 app.add_url_rule('/logout', view_func=auth.logout)
 app.add_url_rule('/register', methods=['GET', 'POST'], view_func=auth.register)
 
+# Booking
+app.add_url_rule('/booking', methods=['GET', 'POST'], view_func=booking.booking)
+
+# Payment
+app.add_url_rule('/payment/<idRoom>', methods=['GET', 'POST'], view_func=payment.payment)
+
+# About
+app.add_url_rule('/about', view_func=about.about)
+
 # Admin panel
 app.add_url_rule('/admin', methods=['GET', 'POST'], view_func=admin.admin)
 
 # Profile
-app.add_url_rule('/profile', methods=['GET', 'POST'], view_func=profile.profile)
+app.add_url_rule('/profile/<idAccount>', methods=['GET', 'POST'], view_func=profile.profile)
 
+# Reviews
+app.add_url_rule('/reviews', view_func=reviews.reviews)
 
-@app.route('/booking', methods=['GET', 'POST'])
-def booking():
-    cursor = mysql.connection.cursor()
-    cursor.execute(
-        "select * from roomtype, room where room.RoomType_idRoomType = roomtype.idRoomType and room.status = 'free'")
-    room = cursor.fetchall()
-    return render_template("booking.html", room=room)
-
-
-@app.route('/payment/<idRoom>', methods=['GET', 'POST'])
-def payment(idRoom):
-    if not session.get("username"):
-        return redirect("/login")
-    if session['username'] == 'admin':
-        return redirect('/booking')
-    msg = ''
-    cursor = mysql.connection.cursor()
-    cursor.execute(f"select status from room where idRoom={idRoom}")
-    status = cursor.fetchone()
-    cursor.execute(f"SELECT roomNumber FROM room WHERE idRoom={idRoom}")
-    number = cursor.fetchone()
-
-    if status['status'] == 'busy':
-        return redirect(url_for('booking'))
-
-    if request.method == 'POST':
-        f = request.form['name']
-        l = request.form['lname']
-        p = request.form['phone']
-        e = request.form['email']
-        chkin = request.form['checkIn']
-        chkout = request.form['checkOut']
-        if chkin > chkout:
-            msg = 'Укажите дату верно'
-        else:
-            try:
-                cursor.execute(f'''INSERT INTO `guest` (`fname`, `lname`, `phone`, `email`) 
-                VALUES ('{f}', '{l}', '{p}', '{e}')''')
-                cursor.execute(f"SELECT idRoom FROM room WHERE idRoom={idRoom}")
-                id = cursor.fetchone()
-                cursor.execute(f'''UPDATE `room` SET status = 'busy', checkIn = '{chkin}', checkOut='{chkout}' 
-                                where idRoom='{id["idRoom"]}' ''')
-                mysql.connection.commit()
-            except(Exception,):
-                msg = 'Данные неверны'
-    cursor.close()
-    return render_template('payment.html', msg=msg, number=number)
-
-
-@app.route('/reviews')
-def reviews():
-    return render_template("reviews.html")
-
-
-@app.route('/help')
-def help():
-    return render_template("help.html")
-
+# Help
+app.add_url_rule('/help', view_func=help.help)
 
 if __name__ == "__main__":
     app.run(debug=True)

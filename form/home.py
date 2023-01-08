@@ -1,5 +1,16 @@
-from flask import render_template
+from flask import Flask, render_template, session, request, redirect
+from flask_mysqldb import MySQL
+
+app = Flask(__name__)
+
+mysql = MySQL(app)
 
 
 def index():
-    return render_template("index.html")
+    acc = ''
+    if session:
+        cursor = mysql.connection.cursor()
+        sesiya = session["username"]
+        cursor.execute(f"select * from account where username = '{sesiya}'")
+        acc = cursor.fetchall()
+    return render_template("index.html", acc=acc)
