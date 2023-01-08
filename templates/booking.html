@@ -19,10 +19,11 @@
 
                 <p>Тип номера: <b>{{ rooms.roomType }}</b></p>
                 <p>Описание: <b>{{ rooms.description }}</b></p>
+                {%if session['username'] != 'admin'%}
                 <div class="button">
                     <a href="/payment/{{rooms.idRoom}}" class="btn btn-outline-primary me-2">Забронировать</a>
-                    </form>
                 </div>
+                {%endif%}
 
             </div>
         </div>

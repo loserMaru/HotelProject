@@ -18,7 +18,7 @@ def login():
         cursor.execute(f"SELECT * FROM account WHERE username='{username}' and password='{password}' ")
         account = cursor.fetchone()
         if account:
-            session['loggedin'] = True
+            session['loggedIn'] = True
             session['username'] = account['username']
             session.permanent = True
             log = 'Вход выполнен успешно'

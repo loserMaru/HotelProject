@@ -58,6 +58,8 @@ def booking():
 def payment(idRoom):
     if not session.get("username"):
         return redirect("/login")
+    if session['username'] == 'admin':
+        return redirect('/booking')
     msg = ''
     cursor = mysql.connection.cursor()
     cursor.execute(f"select status from room where idRoom={idRoom}")
