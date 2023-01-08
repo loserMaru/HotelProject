@@ -1,9 +1,10 @@
+import profile
 from datetime import timedelta
 
 from flask import Flask, render_template, redirect, request, url_for, session
 from flask_mysqldb import MySQL, MySQLdb
 
-from form import about, home, auth, admin
+from form import about, home, auth, admin, profile
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -40,9 +41,11 @@ app.add_url_rule('/login', methods=['GET', 'POST'], view_func=auth.login)
 app.add_url_rule('/logout', view_func=auth.logout)
 app.add_url_rule('/register', methods=['GET', 'POST'], view_func=auth.register)
 
-
 # Admin panel
 app.add_url_rule('/admin', methods=['GET', 'POST'], view_func=admin.admin)
+
+# Profile
+app.add_url_rule('/profile', methods=['GET', 'POST'], view_func=profile.profile)
 
 
 @app.route('/booking', methods=['GET', 'POST'])
