@@ -13,7 +13,7 @@ def admin():
     cursor = mysql.connection.cursor()
     msg = ''
     msgr = ''
-    if request.method == 'POST' and 'number' in request.form and 'status' in request.form and 'roomType' in request.form:
+    if request.method == 'POST' and 'number' in request.form:
         num = request.form['number']
         status = request.form['status']
         rtype = request.form['roomType']

@@ -84,13 +84,14 @@ def payment(idRoom):
             msg = 'Укажите дату верно'
         else:
             try:
-                cursor.execute(f'''INSERT INTO `guest` (`fname`, `lname`, `phone`, `email`, `checkIn`, `checkOut`) 
-                VALUES ('{f}', '{l}', '{p}', '{e}', '{chkin}', '{chkout}')''')
+                cursor.execute(f'''INSERT INTO `guest` (`fname`, `lname`, `phone`, `email`) 
+                VALUES ('{f}', '{l}', '{p}', '{e}')''')
                 cursor.execute(f"SELECT idRoom FROM room WHERE idRoom={idRoom}")
                 id = cursor.fetchone()
-                cursor.execute(f'''UPDATE `room` SET status = 'busy' where idRoom='{id["idRoom"]}' ''')
+                cursor.execute(f'''UPDATE `room` SET status = 'busy', checkIn = '{chkin}', checkOut='{chkout}' 
+                                where idRoom='{id["idRoom"]}' ''')
                 mysql.connection.commit()
-            except:
+            except(Exception,):
                 msg = 'Данные неверны'
     cursor.close()
     return render_template('payment.html', msg=msg, number=number)
