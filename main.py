@@ -1,35 +1,30 @@
 from datetime import timedelta
 
-from flask import Flask, render_template, redirect, request, url_for, session
-from flask_mysqldb import MySQL, MySQLdb
+from flask import Flask
 
+from database.extension import mysql
 from form import about, home, auth, admin, profile, payment, booking, help, reviews
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15)
 
-mysql = MySQL(app)
-
 
 def create_connection(host, user, password, db):
     connection = False
-    try:
-        app.config['MYSQL_HOST'] = host
-        app.config['MYSQL_USER'] = user
-        app.config['MYSQL_PASSWORD'] = password
-        app.config['MYSQL_DB'] = db
-        app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-        print("Connection to MySQL DB successful")
-        connection = True
-        return connection
-
-    except MySQLdb.OperationalError as e:
-        print(f'MySQL server has gone away: {e}, trying to reconnect')
-        raise e
+    app.config['MYSQL_HOST'] = host
+    app.config['MYSQL_USER'] = user
+    app.config['MYSQL_PASSWORD'] = password
+    app.config['MYSQL_DB'] = db
+    app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+    print("Connection to MySQL DB successful")
+    connection = True
+    return connection
 
 
 connect_db = create_connection('localhost', 'root', '4863826M', 'hotel_db')
+
+mysql.init_app(app)
 
 # Home
 app.add_url_rule('/', methods=['GET', 'POST'], view_func=home.index)
