@@ -5,5 +5,61 @@
 {% endblock %}
 
 {% block body %}
+{%for revs in rev%}
+<div class="container">
+    <p><span>{{revs.username}}</span> г. Москва</p>
+    <p>{{revs.desc}}</p>
+</div>
+{%endfor%}
 
+<div class="write">
+    <h1>Оставить отзыв</h1>
+</div>
+<form action="" method="post">
+<!--    <label for="username">-->
+<!--        <i class="fa fa-user"></i>-->
+<!--    </label>-->
+<!--    <input type="text" name="username" placeholder="Введите ваше имя" id="username" required>-->
+<!--    <p></p>-->
+    <label for="desc">
+        <i class="fa fa-user"></i>
+    </label>
+    <input type="text" name='desc' placeholder="Отзыв" id="desc" rows="15" cols="100">
+    <p></p>
+    <input type="submit" style="text-align: right" value="Отправить">
+</form>
+<style>
+    .container {
+        width: 75%;
+        border: 2px solid #ccc;
+        background-color: #eee;
+        border-radius: 5px; /* скругление углов блока */
+        padding: 16px; /* внутренние поля */
+        margin: 16px auto; /* внешние отступы */
+    }
+
+    .container img {
+        float: left; /* обтекание слева */
+        margin-right: 20px; /* пространство между аватаркой и абзацем */
+        border-radius: 50%; /* скругляет аватарку */
+        width: 90px;
+    }
+
+    .container span {
+        font-size: 18px;
+        margin-right: 15px;
+    }
+
+    .write {
+        text-align: center;
+    }
+
+    form {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #000000;
+    }
+
+</style>
 {% endblock %}

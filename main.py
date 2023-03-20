@@ -50,7 +50,7 @@ app.add_url_rule('/admin', methods=['GET', 'POST'], view_func=admin.admin)
 app.add_url_rule('/profile/<idAccount>', methods=['GET', 'POST'], view_func=profile.profile)
 
 # Reviews
-app.add_url_rule('/reviews', view_func=reviews.reviews)
+app.add_url_rule('/reviews', methods=['GET', 'POST'], view_func=reviews.reviews)
 
 # Help
 app.add_url_rule('/help', view_func=help.help)
