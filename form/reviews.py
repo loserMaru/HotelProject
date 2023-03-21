@@ -9,6 +9,12 @@ mysql = MySQL(app)
 
 
 def reviews():
+    acc = ''
+    if session:
+        cursor = mysql.connection.cursor()
+        sesiya = session["username"]
+        cursor.execute(f"select * from account where username = '{sesiya}'")
+        acc = cursor.fetchall()
     cursor = mysql.connection.cursor()
     cursor.execute(f'''SELECT * FROM reviews''')
     rev = cursor.fetchall()
@@ -23,4 +29,4 @@ def reviews():
             return redirect("/reviews")
         else:
             return redirect("/register")
-    return render_template("reviews.html", rev=rev)
+    return render_template("reviews.html", rev=rev, acc=acc)

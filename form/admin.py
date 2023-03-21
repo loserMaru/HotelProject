@@ -8,7 +8,10 @@ mysql = MySQL(app)
 
 
 def admin():
-    if session['username'] != 'admin':
+    if session:
+        if session['username'] != 'admin':
+            return redirect('/')
+    else:
         return redirect('/')
     cursor = mysql.connection.cursor()
     msg = ''

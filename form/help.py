@@ -9,4 +9,10 @@ mysql = MySQL(app)
 
 
 def help():
-    return render_template("help.html")
+    acc = ''
+    if session:
+        cursor = mysql.connection.cursor()
+        sesiya = session["username"]
+        cursor.execute(f"select * from account where username = '{sesiya}'")
+        acc = cursor.fetchall()
+    return render_template("help.html", acc=acc)

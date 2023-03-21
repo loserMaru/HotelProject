@@ -7,20 +7,16 @@
 {% block body %}
 {%for revs in rev%}
 <div class="container">
-    <p><span>{{revs.username}}</span> г. Москва</p>
+    <p><span>{{revs.username}}</span> г. Симферополь</p>
     <p>{{revs.desc}}</p>
 </div>
 {%endfor%}
 
+{%if session['username'] != 'admin'%}
 <div class="write">
     <h1>Оставить отзыв</h1>
 </div>
 <form action="" method="post">
-<!--    <label for="username">-->
-<!--        <i class="fa fa-user"></i>-->
-<!--    </label>-->
-<!--    <input type="text" name="username" placeholder="Введите ваше имя" id="username" required>-->
-<!--    <p></p>-->
     <label for="desc">
         <i class="fa fa-user"></i>
     </label>
@@ -28,6 +24,7 @@
     <p></p>
     <input type="submit" style="text-align: right" value="Отправить">
 </form>
+{%endif%}
 <style>
     .container {
         width: 75%;

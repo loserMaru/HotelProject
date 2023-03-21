@@ -10,7 +10,7 @@ mysql = MySQL(app)
 
 def profile(idAccount):
     if not session:
-        return redirect('/register')
+        return redirect('/login')
     print(session['username'])
     sesiya = session['username']
     cursor = mysql.connection.cursor()

@@ -9,6 +9,12 @@ mysql = MySQL(app)
 
 
 def payment(idRoom):
+    acc = ''
+    if session:
+        cursor = mysql.connection.cursor()
+        sesiya = session["username"]
+        cursor.execute(f"select * from account where username = '{sesiya}'")
+        acc = cursor.fetchall()
     if not session.get("username"):
         return redirect("/login")
     if session['username'] == 'admin':
@@ -44,4 +50,4 @@ def payment(idRoom):
             except(Exception,):
                 msg = 'Данные неверны'
     cursor.close()
-    return render_template('payment.html', msg=msg, number=number)
+    return render_template('payment.html', msg=msg, number=number, acc=acc)

@@ -9,6 +9,12 @@ mysql = MySQL(app)
 
 
 def login():
+    acc = ''
+    if session:
+        cursor = mysql.connection.cursor()
+        sesiya = session["username"]
+        cursor.execute(f"select * from account where username = '{sesiya}'")
+        acc = cursor.fetchall()
     log = ''
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
@@ -24,10 +30,16 @@ def login():
             log = 'Вход выполнен успешно'
         else:
             msg = 'Неверное имя пользователя или пароль'
-    return render_template("login.html", msg=msg, log=log)
+    return render_template("login.html", msg=msg, log=log, acc=acc)
 
 
 def register():
+    acc = ''
+    if session:
+        cursor = mysql.connection.cursor()
+        sesiya = session["username"]
+        cursor.execute(f"select * from account where username = '{sesiya}'")
+        acc = cursor.fetchall()
     msg = ''
     msgr = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
@@ -57,7 +69,7 @@ def register():
             msgr = 'Вы успешно зарегистрировались!'
     elif request.method == 'POST':
         msg = 'Пожалуйста, заполните это поле!'
-    return render_template("register.html", msg=msg, msgr=msgr)
+    return render_template("register.html", msg=msg, msgr=msgr, acc=acc)
 
 
 def logout():
