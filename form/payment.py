@@ -44,8 +44,8 @@ def payment(idRoom):
                 VALUES ('{f}', '{l}', '{p}', '{e}')''')
                 cursor.execute(f"SELECT idRoom FROM room WHERE idRoom={idRoom}")
                 id = cursor.fetchone()
-                cursor.execute(f'''UPDATE `room` SET status = 'busy', checkIn = '{chkin}', checkOut='{chkout}' 
-                                where idRoom='{id["idRoom"]}' ''')
+                cursor.execute(f'''UPDATE `room` SET status = 'busy' where idRoom='{id["idRoom"]}' ''')
+                cursor.execute(f'''UPDATE `guest` SET checkIn = '{chkin}', checkOut='{chkout}' where phone='{p}' ''')
                 mysql.connection.commit()
             except(Exception,):
                 msg = 'Данные неверны'

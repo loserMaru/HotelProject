@@ -48,6 +48,7 @@ app.add_url_rule('/admin', methods=['GET', 'POST'], view_func=admin.admin)
 
 # Profile
 app.add_url_rule('/profile/<idAccount>', methods=['GET', 'POST'], view_func=profile.profile)
+app.add_url_rule('/profile/<idAccount>/edit', methods=['GET', 'POST'], view_func=profile.edit)
 
 # Reviews
 app.add_url_rule('/reviews', methods=['GET', 'POST'], view_func=reviews.reviews)

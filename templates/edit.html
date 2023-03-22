@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Помощь
+{% endblock %}
+
+{% block body %}
+<div class="login mb-5">
+    <h1>Редактирование профиля</h1>
+    <form id="form" method="post">
+        <label for="pic">
+            <i class="fa fa-user"></i>
+        </label>
+        <input type="text" name="pic" placeholder="Ссылка на картинку" id="pic">
+        <label for="password">
+            <i class="fa fa-lock"></i>
+        </label>
+        <input type="password" name="password" placeholder="Новый пароль" id="password">
+        <label for="confirm">
+            <i class="fa fa-lock"></i>
+        </label>
+        <input type="password" name="confirm" placeholder="Старый пароль" id="confirm">
+        <div class="msg"><span style="color:red; font-size: 18px">{{ msg }}</span></div>
+        <div class="msg"><span style="color:green; font-size: 18px">{{ msgr }}</span></div>
+        <input type="submit" value="Сохранить">
+    </form>
+</div>
+{% endblock %}
